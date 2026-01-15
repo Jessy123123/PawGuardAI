@@ -22,3 +22,5 @@ macos/Pods/
 
 # Generated files
 flutter_*.png
+
+.env

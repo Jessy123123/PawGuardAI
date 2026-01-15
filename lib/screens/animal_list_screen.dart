@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../screens/cctv_camera_screen.dart';
+import '../screens/animal_map_screen.dart';
 
 class AnimalListScreen extends StatefulWidget {
   const AnimalListScreen({super.key});
@@ -16,6 +17,7 @@ class _AnimalListScreenState extends State<AnimalListScreen> {
       appBar: AppBar(
         title: const Text('PawGuard AI – Animals'),
         actions: [
+          // 🎥 CCTV Button
           IconButton(
             icon: const Icon(Icons.videocam),
             tooltip: 'Open CCTV Camera',
@@ -28,15 +30,32 @@ class _AnimalListScreenState extends State<AnimalListScreen> {
               );
             },
           ),
+
+          // 🗺 Map Button
+          IconButton(
+            icon: const Icon(Icons.map),
+            tooltip: 'View Map',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const AnimalMapScreen(),
+                ),
+              );
+            },
+          ),
         ],
       ),
+
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('animals').snapshots(),
         builder: (context, snapshot) {
+          // Loading
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
 
+          // Empty
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
             return const Center(child: Text('No animals found'));
           }

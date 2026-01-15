@@ -35,6 +35,8 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        manifestPlaceholders = [GOOGLE_MAPS_API_KEY: System.getenv("GOOGLE_MAPS_API_KEY")]
     }
 
     buildTypes {
@@ -49,3 +51,5 @@ android {
 flutter {
     source = "../.."
 }
+
+

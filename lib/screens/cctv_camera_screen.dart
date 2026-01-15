@@ -107,12 +107,7 @@ class _CctvCameraScreenState extends State<CctvCameraScreen> {
     final blurredFace = img.gaussianBlur(faceCrop, radius: 15);
 
     // Paste back
-    img.copyInto(
-      src,
-      blurredFace,
-      dstX: x,
-      dstY: y,
-    );
+    img.compositeImage(src, blurredFace, dstX: x, dstY: y);
 
     return src;
   }
