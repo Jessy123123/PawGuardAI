@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'dart:typed_data';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:image/image.dart' as img;
 import 'package:tflite_flutter/tflite_flutter.dart';
@@ -28,10 +28,10 @@ class ObjectDetectorService {
           .toList();
 
       _isInitialized = true;
-      print('✅ Model loaded successfully!');
-      print('📋 Labels loaded: ${_labels.length} classes');
+      debugPrint('✅ Model loaded successfully!');
+      debugPrint('📋 Labels loaded: ${_labels.length} classes');
     } catch (e) {
-      print('❌ Error loading model: $e');
+      debugPrint('❌ Error loading model: $e');
       rethrow;
     }
   }
