@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../cctv_simulator.dart';
+import '../screens/cctv_camera_screen.dart';
 
 class AnimalListScreen extends StatefulWidget {
   const AnimalListScreen({super.key});
@@ -10,30 +10,28 @@ class AnimalListScreen extends StatefulWidget {
 }
 
 class _AnimalListScreenState extends State<AnimalListScreen> {
-  final _cctvSimulator = CctvSimulator();
-
-  @override
-  void initState() {
-    super.initState();
-    _cctvSimulator.start(); // Start simulated CCTV
-  }
-
-  @override
-  void dispose() {
-    _cctvSimulator.stop(); // Stop CCTV when screen closes
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('PawGuard AI – Animals'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.videocam),
+            tooltip: 'Open CCTV Camera',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const CctvCameraScreen(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('animals')
-            .snapshots(),
+        stream: FirebaseFirestore.instance.collection('animals').snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -48,14 +46,12 @@ class _AnimalListScreenState extends State<AnimalListScreen> {
           return ListView.builder(
             itemCount: docs.length,
             itemBuilder: (context, index) {
-              final data =
-                  docs[index].data() as Map<String, dynamic>;
+              final data = docs[index].data() as Map<String, dynamic>;
 
               final species = data['species'] ?? 'unknown';
               final status = data['status'] ?? 'unknown';
 
-              final health =
-                  data['health'] as Map<String, dynamic>? ?? {};
+              final health = data['health'] as Map<String, dynamic>? ?? {};
               final vaccinated = health['vaccinated'] ?? false;
               final neutered = health['neutered'] ?? false;
 
