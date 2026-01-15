@@ -21,10 +21,9 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
-    aaptOptions {
-        noCompress 'tflite'
-        noCompress 'lite'
-    }
+   aaptOptions {
+    noCompress += listOf("tflite", "lite")
+}
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
