@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
@@ -74,7 +75,7 @@ class _CctvCameraScreenState extends State<CctvCameraScreen> {
       final faces = await _faceDetector.processImage(inputImage);
 
       // DEBUG LOG (IMPORTANT)
-      print('Faces detected: ${faces.length}');
+      debugPrint('Faces detected: ${faces.length}');
 
       // 3. Decode image for processing
       Uint8List bytes = await imageFile.readAsBytes();
@@ -88,7 +89,7 @@ class _CctvCameraScreenState extends State<CctvCameraScreen> {
       // 5️. Pass sanitized image to animal AI
       // final species = classifier.predict(image);
     } catch (e) {
-      print('Error during capture & process: $e');
+      debugPrint('Error during capture & process: $e');
     } finally {
       _isProcessing = false;
     }

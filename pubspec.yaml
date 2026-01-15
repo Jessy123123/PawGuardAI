@@ -33,3 +33,4 @@ flutter:
   assets:
     - assets/ssd_mobilenet_v2.tflite
     - assets/labels.txt
+    - .env
