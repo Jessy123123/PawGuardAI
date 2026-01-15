@@ -41,47 +41,49 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAXGqnyQ6fdY-ZAEaQNueXLqlCUVY0ZnjM',
-    appId: '1:124644858042:web:1cdc64af7cd4e8853fca83',
-    messagingSenderId: '124644858042',
-    projectId: 'pawguardai',
-    authDomain: 'pawguardai.firebaseapp.com',
-    storageBucket: 'pawguardai.firebasestorage.app',
+    apiKey: 'AIzaSyDC6Ucn1pBb1vTkGa-8SpBLa2QX8kWAAYg',
+    appId: '1:369511478172:web:a6f5e58dee11d5c6940e59',
+    messagingSenderId: '369511478172',
+    projectId: 'pawguard-ai',
+    authDomain: 'pawguard-ai.firebaseapp.com',
+    storageBucket: 'pawguard-ai.firebasestorage.app',
+    measurementId: 'G-E8NWW9QNRF',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBgvWHZV3JD-OgpUbKBN5NkGb79F6ImNkE',
-    appId: '1:124644858042:android:6545550b941ff3553fca83',
-    messagingSenderId: '124644858042',
-    projectId: 'pawguardai',
-    storageBucket: 'pawguardai.firebasestorage.app',
+    apiKey: 'AIzaSyBkwEqtLJy1FhDnF56dTOhaHaFp_gmgq84',
+    appId: '1:369511478172:android:7367d6a18d5b893f940e59',
+    messagingSenderId: '369511478172',
+    projectId: 'pawguard-ai',
+    storageBucket: 'pawguard-ai.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBl5ZrwU3O5P7sjwOckCTx0TiEXKnZUF9Q',
-    appId: '1:337125078504:ios:880890f3cafaadd5e2205d',
-    messagingSenderId: '337125078504',
-    projectId: 'flutter-ai-playground-ef174',
-    storageBucket: 'flutter-ai-playground-ef174.firebasestorage.app',
+    apiKey: 'AIzaSyAE8thw6ZeNbdX7VcYyJKHT4j5ov9UqwfQ',
+    appId: '1:369511478172:ios:01045d2a7635e66c940e59',
+    messagingSenderId: '369511478172',
+    projectId: 'pawguard-ai',
+    storageBucket: 'pawguard-ai.firebasestorage.app',
     iosBundleId: 'com.example.pawguardAi',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBl5ZrwU3O5P7sjwOckCTx0TiEXKnZUF9Q',
-    appId: '1:337125078504:ios:880890f3cafaadd5e2205d',
-    messagingSenderId: '337125078504',
-    projectId: 'flutter-ai-playground-ef174',
-    storageBucket: 'flutter-ai-playground-ef174.firebasestorage.app',
+    apiKey: 'AIzaSyAE8thw6ZeNbdX7VcYyJKHT4j5ov9UqwfQ',
+    appId: '1:369511478172:ios:01045d2a7635e66c940e59',
+    messagingSenderId: '369511478172',
+    projectId: 'pawguard-ai',
+    storageBucket: 'pawguard-ai.firebasestorage.app',
     iosBundleId: 'com.example.pawguardAi',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyAXGqnyQ6fdY-ZAEaQNueXLqlCUVY0ZnjM',
-    appId: '1:124644858042:web:c126a98c137cd44c3fca83',
-    messagingSenderId: '124644858042',
-    projectId: 'pawguardai',
-    authDomain: 'pawguardai.firebaseapp.com',
-    storageBucket: 'pawguardai.firebasestorage.app',
+    apiKey: 'AIzaSyDC6Ucn1pBb1vTkGa-8SpBLa2QX8kWAAYg',
+    appId: '1:369511478172:web:7a085567d4294f01940e59',
+    messagingSenderId: '369511478172',
+    projectId: 'pawguard-ai',
+    authDomain: 'pawguard-ai.firebaseapp.com',
+    storageBucket: 'pawguard-ai.firebasestorage.app',
+    measurementId: 'G-737G8Y27G9',
   );
 
 }
