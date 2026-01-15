@@ -11,8 +11,13 @@ dependencies:
     sdk: flutter
   google_maps_flutter: ^2.6.0
 
+  tflite_flutter: ^0.12.1 # Check for latest version on pub.dev
+  camera: ^0.11.0
+
   firebase_core: ^2.24.2
   cloud_firestore: ^4.15.5
+  image: ^4.7.2
+  path_provider: ^2.1.2
 
 dev_dependencies:
   flutter_test:
@@ -21,3 +26,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/ssd_mobilenet_v2.tflite
+    - assets/labels.txt
