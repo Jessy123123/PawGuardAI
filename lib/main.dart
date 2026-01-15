@@ -1,5 +1,6 @@
 import 'screens/animal_list_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'screens/test_detector_screen.dart';
 
 
 Future<void> main() async {
