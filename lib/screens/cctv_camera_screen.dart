@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
@@ -55,8 +54,8 @@ class _CctvCameraScreenState extends State<CctvCameraScreen> {
       appBar: AppBar(title: const Text('Live CCTV Camera')),
       body: CameraPreview(_controller!),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.camera),
         onPressed: _captureAndProcess,
+        child: const Icon(Icons.camera),
       ),
     );
   }
@@ -108,7 +107,7 @@ class _CctvCameraScreenState extends State<CctvCameraScreen> {
     final blurredFace = img.gaussianBlur(faceCrop, radius: 15);
 
     // Paste back
-    src.drawImage(blurredFace, x: x, y: y);
+    img.compositeImage(src, blurredFace, dstX: x, dstY: y);
 
     return src;
   }

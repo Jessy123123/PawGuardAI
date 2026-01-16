@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:image_picker/image_picker.dart';
 import '../services/object_detector.dart';
 
 class TestDetectorScreen extends StatefulWidget {
@@ -12,11 +13,15 @@ class TestDetectorScreen extends StatefulWidget {
 
 class _TestDetectorScreenState extends State<TestDetectorScreen> {
   final ObjectDetectorService _detector = ObjectDetectorService();
+  final ImagePicker _picker = ImagePicker();
+  
   bool _isLoading = true;
   String _status = 'Initializing...';
   List<Map<String, dynamic>> _detections = [];
+  
   CameraController? _cameraController;
   List<CameraDescription>? _cameras;
+  File? _pickedImage;
   bool _isProcessing = false;
 
   @override
@@ -26,43 +31,70 @@ class _TestDetectorScreenState extends State<TestDetectorScreen> {
   }
 
   Future<void> _initializeAll() async {
-    setState(() => _status = 'Loading model...');
+    setState(() {
+      _status = 'Loading model...';
+      _isLoading = true;
+    });
     
     try {
       // Load the detector model
+      debugPrint('Initializing model...');
       await _detector.loadModel();
-      setState(() => _status = 'Model loaded! Initializing camera...');
+      debugPrint('Model initialized successfully');
+      
+      setState(() => _status = 'Model loaded! Checking camera...');
 
-      // Initialize cameras
-      _cameras = await availableCameras();
-      if (_cameras != null && _cameras!.isNotEmpty) {
-        _cameraController = CameraController(
-          _cameras!.first,
-          ResolutionPreset.medium,
-          enableAudio: false,
-        );
-        await _cameraController!.initialize();
-        setState(() {
-          _isLoading = false;
-          _status = 'Ready! Tap "Detect" to analyze';
-        });
-      } else {
-        setState(() {
-          _isLoading = false;
-          _status = 'No camera available. Model is ready for file-based detection.';
-        });
+      try {
+        _cameras = await availableCameras();
+        if (_cameras != null && _cameras!.isNotEmpty) {
+          _cameraController = CameraController(
+            _cameras!.first,
+            ResolutionPreset.medium,
+            enableAudio: false,
+          );
+          await _cameraController!.initialize();
+          if (mounted) {
+            setState(() {
+              _status = 'Camera ready! Or pick an image';
+            });
+          }
+        } else {
+          setState(() => _status = 'No camera found. Pick an image to test.');
+        }
+      } catch (e) {
+        debugPrint('Camera init error: $e');
+        setState(() => _status = 'Camera unavailable. Pick an image to test.');
       }
     } catch (e) {
-      setState(() {
-        _isLoading = false;
-        _status = 'Error: $e';
-      });
+      debugPrint('Model load error: $e');
+      setState(() => _status = 'Error loading model: $e. Try restarting.');
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
+  Future<void> _pickImage() async {
+    try {
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        setState(() {
+          _pickedImage = File(image.path);
+          _detections = [];
+          _status = 'Image selected. Analyzing...';
+        });
+        
+        // Slight delay to ensure UI updates
+        await Future.delayed(const Duration(milliseconds: 100));
+        await _runDetection(_pickedImage!);
+      }
+    } catch (e) {
+      setState(() => _status = 'Error picking image: $e');
     }
   }
 
   Future<void> _captureAndDetect() async {
     if (_cameraController == null || !_cameraController!.value.isInitialized) {
-      setState(() => _status = 'Camera not available');
+      _pickImage();
       return;
     }
 
@@ -74,17 +106,46 @@ class _TestDetectorScreenState extends State<TestDetectorScreen> {
 
     try {
       final XFile photo = await _cameraController!.takePicture();
-      setState(() => _status = 'Analyzing image...');
+      final imageFile = File(photo.path);
+      await _runDetection(imageFile);
+    } catch (e) {
+      setState(() {
+        _status = 'Capture error: $e';
+        _isProcessing = false;
+      });
+    }
+  }
 
-      final File imageFile = File(photo.path);
+  Future<void> _runDetection(File imageFile) async {
+    if (!_detector.isInitialized) {
+      setState(() {
+        _status = 'Model not ready. Retrying init...';
+      });
+      try {
+        await _detector.loadModel();
+      } catch (e) {
+        setState(() {
+          _status = 'Failed to load model: $e';
+          _isProcessing = false;
+        });
+        return;
+      }
+    }
+
+    setState(() {
+      _isProcessing = true;
+      _status = 'Analyzing...';
+    });
+
+    try {
       final results = _detector.detect(imageFile);
-
       setState(() {
         _detections = results;
         _status = 'Found ${results.length} object(s)';
         _isProcessing = false;
       });
     } catch (e) {
+      debugPrint('Detection error: $e');
       setState(() {
         _status = 'Detection error: $e';
         _isProcessing = false;
@@ -106,6 +167,13 @@ class _TestDetectorScreenState extends State<TestDetectorScreen> {
         title: const Text('🐾 PawGuard AI - Test'),
         backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.image),
+            onPressed: _pickImage,
+            tooltip: 'Pick Image',
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -121,26 +189,37 @@ class _TestDetectorScreenState extends State<TestDetectorScreen> {
             ),
           ),
 
-          // Camera preview or loading
+          // Main View (Camera or Picked Image)
           Expanded(
             flex: 2,
             child: _isLoading
                 ? const Center(child: CircularProgressIndicator())
-                : _cameraController != null && _cameraController!.value.isInitialized
-                    ? CameraPreview(_cameraController!)
-                    : const Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.camera_alt, size: 64, color: Colors.grey),
-                            SizedBox(height: 16),
-                            Text('Camera not available'),
-                          ],
-                        ),
-                      ),
+                : _pickedImage != null
+                    ? Image.file(_pickedImage!, fit: BoxFit.contain)
+                    : _cameraController != null && _cameraController!.value.isInitialized
+                        ? CameraPreview(_cameraController!)
+                        : Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.broken_image, size: 64, color: Colors.grey),
+                                const SizedBox(height: 16),
+                                const Text(
+                                  'Camera Not Available',
+                                  style: TextStyle(fontSize: 18, color: Colors.grey),
+                                ),
+                                const SizedBox(height: 16),
+                                ElevatedButton.icon(
+                                  onPressed: _pickImage,
+                                  icon: const Icon(Icons.upload_file),
+                                  label: const Text('Pick Image to Test'),
+                                ),
+                              ],
+                            ),
+                          ),
           ),
 
-          // Detection results
+          // Detection Results
           Expanded(
             flex: 1,
             child: Container(
@@ -150,9 +229,19 @@ class _TestDetectorScreenState extends State<TestDetectorScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Detected Objects:',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Detected Objects:',
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      if (_detections.isNotEmpty)
+                        Chip(
+                          label: Text('${_detections.length}'),
+                          backgroundColor: Colors.deepPurple.shade100,
+                        ),
+                    ],
                   ),
                   const SizedBox(height: 8),
                   Expanded(
@@ -183,8 +272,10 @@ class _TestDetectorScreenState extends State<TestDetectorScreen> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _isProcessing ? null : _captureAndDetect,
         backgroundColor: Colors.deepPurple,
-        icon: Icon(_isProcessing ? Icons.hourglass_empty : Icons.camera),
-        label: Text(_isProcessing ? 'Processing...' : 'Detect'),
+        icon: Icon(_isProcessing ? Icons.hourglass_empty : 
+                   (_pickedImage != null ? Icons.refresh : Icons.camera)),
+        label: Text(_isProcessing ? 'Processing' : 
+                   (_pickedImage != null ? 'Retest Image' : 'Capture')),
       ),
     );
   }
