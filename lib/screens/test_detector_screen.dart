@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../services/object_detector.dart';
 
 class TestDetectorScreen extends StatefulWidget {
@@ -42,7 +43,20 @@ class _TestDetectorScreenState extends State<TestDetectorScreen> {
       await _detector.loadModel();
       debugPrint('Model initialized successfully');
       
-      setState(() => _status = 'Model loaded! Checking camera...');
+      setState(() => _status = 'Model loaded! Requesting camera permission...');
+
+      // Request camera permission
+      final permissionStatus = await Permission.camera.request();
+      
+      if (!permissionStatus.isGranted) {
+        debugPrint('Camera permission denied');
+        if (mounted) {
+          setState(() => _status = 'Camera permission denied. Pick an image to test.');
+        }
+        return;
+      }
+
+      setState(() => _status = 'Permission granted! Initializing camera...');
 
       try {
         _cameras = await availableCameras();
@@ -55,7 +69,7 @@ class _TestDetectorScreenState extends State<TestDetectorScreen> {
           await _cameraController!.initialize();
           if (mounted) {
             setState(() {
-              _status = 'Camera ready! Or pick an image';
+              _status = 'Camera ready! Tap capture button or pick an image';
             });
           }
         } else {
@@ -63,7 +77,7 @@ class _TestDetectorScreenState extends State<TestDetectorScreen> {
         }
       } catch (e) {
         debugPrint('Camera init error: $e');
-        setState(() => _status = 'Camera unavailable. Pick an image to test.');
+        setState(() => _status = 'Camera unavailable: $e. Pick an image to test.');
       }
     } catch (e) {
       debugPrint('Model load error: $e');

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 import 'package:image/image.dart' as img;
+import 'package:permission_handler/permission_handler.dart';
 
 class CctvCameraScreen extends StatefulWidget {
   const CctvCameraScreen({super.key});
@@ -27,14 +28,45 @@ class _CctvCameraScreenState extends State<CctvCameraScreen> {
   }
 
   Future<void> _initCamera() async {
-    final cameras = await availableCameras();
-    _controller = CameraController(
-      cameras.first,
-      ResolutionPreset.medium,
-      enableAudio: false,
-    );
-    await _controller!.initialize();
-    setState(() {});
+    // Request camera permission
+    final status = await Permission.camera.request();
+    
+    if (!status.isGranted) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Camera permission is required to use this feature'),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+      return;
+    }
+
+    try {
+      final cameras = await availableCameras();
+      if (cameras.isEmpty) {
+        debugPrint('No cameras available');
+        return;
+      }
+
+      _controller = CameraController(
+        cameras.first,
+        ResolutionPreset.medium,
+        enableAudio: false,
+      );
+      await _controller!.initialize();
+      if (mounted) {
+        setState(() {});
+      }
+    } catch (e) {
+      debugPrint('Error initializing camera: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to initialize camera: $e')),
+        );
+      }
+    }
   }
 
   @override
