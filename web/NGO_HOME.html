@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>PawGuard AI NGO Home Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00a0f0",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#064E3B", // Deep forest green as requested
+                        "card-light": "#F0F2EB",
+                        "rescue-green": "#28A745",
+                        "not-rescued-red": "#DC3545",
+                        "warning-amber": "#FFC107"
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem", // 12px
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .ios-tab-bar {
+            backdrop-filter: blur(10px);
+            background-color: rgba(6, 78, 59, 0.9);
+        }
+
+        .lifted-card {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background-dark text-white min-h-screen font-display flex items-center justify-center bg-slate-900">
+    <div
+        class="relative flex h-full h-screen w-full flex-col max-w-[430px] mx-auto overflow-x-hidden bg-background-dark shadow-2xl border-x border-white/10 overflow-y-auto no-scrollbar">
+        <!-- Top Navigation Bar -->
+        <header class="sticky top-0 z-50 bg-background-dark/95 backdrop-blur-md px-4 py-4 flex flex-col gap-4">
+            <div class="flex items-center justify-between">
+                <div
+                    class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full cursor-pointer hover:bg-white/20 transition-colors">
+                    <span class="text-xs font-medium text-primary uppercase tracking-wider">Current Zone</span>
+                    <h2 class="text-white text-sm font-bold leading-tight">Sector 7 - Downtown</h2>
+                    <span class="material-symbols-outlined text-primary text-xl">keyboard_arrow_down</span>
+                </div>
+                <button class="size-10 flex items-center justify-center bg-white/10 rounded-full text-white">
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+            </div>
+        </header>
+        <main class="px-4 pb-32">
+            <!-- Statistics Section Header -->
+            <div class="flex items-center justify-between pt-2 pb-4">
+                <h3 class="text-white text-xl font-bold tracking-tight">Rescue Statistics</h3>
+                <span class="text-white/50 text-xs font-medium">Last 24h</span>
+            </div>
+            <!-- 2x2 Bento Box Grid -->
+            <div class="grid grid-cols-2 gap-4 mb-8">
+                <!-- Card 1: Dogs Rescued -->
+                <div class="lifted-card flex flex-col justify-between p-4 bg-card-light rounded-lg h-36">
+                    <div class="flex justify-between items-start">
+                        <div class="p-2 bg-rescue-green/10 rounded-lg">
+                            <span class="material-symbols-outlined text-rescue-green">home</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-black/60 text-xs font-bold uppercase tracking-tight">Dogs Rescued</span>
+                        <span class="text-rescue-green text-3xl font-extrabold">128</span>
+                    </div>
+                </div>
+                <!-- Card 2: Dogs Not Rescued -->
+                <div class="lifted-card flex flex-col justify-between p-4 bg-card-light rounded-lg h-36">
+                    <div class="flex justify-between items-start">
+                        <div class="p-2 bg-not-rescued-red/10 rounded-lg">
+                            <span class="material-symbols-outlined text-not-rescued-red">potted_plant</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-black/60 text-xs font-bold uppercase tracking-tight">Dogs Not Rescued</span>
+                        <span class="text-not-rescued-red text-3xl font-extrabold">45</span>
+                    </div>
+                </div>
+                <!-- Card 3: Cats Rescued -->
+                <div class="lifted-card flex flex-col justify-between p-4 bg-card-light rounded-lg h-36">
+                    <div class="flex justify-between items-start">
+                        <div class="p-2 bg-rescue-green/10 rounded-lg">
+                            <span class="material-symbols-outlined text-rescue-green">lookup</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-black/60 text-xs font-bold uppercase tracking-tight">Cats Rescued</span>
+                        <span class="text-rescue-green text-3xl font-extrabold">84</span>
+                    </div>
+                </div>
+                <!-- Card 4: Cats Not Rescued -->
+                <div class="lifted-card flex flex-col justify-between p-4 bg-card-light rounded-lg h-36">
+                    <div class="flex justify-between items-start">
+                        <div class="p-2 bg-not-rescued-red/10 rounded-lg">
+                            <span class="material-symbols-outlined text-not-rescued-red">emergency_home</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-black/60 text-xs font-bold uppercase tracking-tight">Cats Not Rescued</span>
+                        <span class="text-not-rescued-red text-3xl font-extrabold">22</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Live Intelligence Feed Section -->
+            <div class="flex items-center justify-between pb-4">
+                <h3 class="text-white text-xl font-bold tracking-tight">Live Intelligence Feed</h3>
+                <button class="text-primary text-xs font-bold uppercase tracking-wider">View All</button>
+            </div>
+            <!-- List Items -->
+            <div class="space-y-3">
+                <!-- Notification 1: Flood Warning -->
+                <div class="flex gap-4 bg-white/5 border border-white/10 p-4 rounded-lg items-center">
+                    <div
+                        class="size-12 shrink-0 bg-not-rescued-red flex items-center justify-center rounded-lg shadow-lg">
+                        <span class="material-symbols-outlined text-white">warning</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start">
+                            <h4 class="text-white text-base font-bold">Flood Warning</h4>
+                            <span
+                                class="text-not-rescued-red text-[10px] font-bold uppercase px-1.5 py-0.5 border border-not-rescued-red rounded">Critical</span>
+                        </div>
+                        <p class="text-white/70 text-sm font-normal">Rising water levels detected.</p>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span class="text-white/40 text-xs font-medium">Area B</span>
+                            <span class="size-1 bg-white/20 rounded-full"></span>
+                            <span class="text-white/40 text-xs font-medium">2m ago</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Notification 2: Public Report -->
+                <div class="flex gap-4 bg-white/5 border border-white/10 p-4 rounded-lg items-center">
+                    <div
+                        class="size-12 shrink-0 bg-warning-amber flex items-center justify-center rounded-lg shadow-lg">
+                        <span class="material-symbols-outlined text-background-dark font-bold">person_pin</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start">
+                            <h4 class="text-white text-base font-bold">Public Report</h4>
+                            <span
+                                class="text-warning-amber text-[10px] font-bold uppercase px-1.5 py-0.5 border border-warning-amber rounded">Review</span>
+                        </div>
+                        <p class="text-white/70 text-sm font-normal">Injured Dog spotted near park.</p>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span class="text-white/40 text-xs font-medium">Sector 4</span>
+                            <span class="size-1 bg-white/20 rounded-full"></span>
+                            <span class="text-white/40 text-xs font-medium">10m ago</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Notification 3: AI Detection -->
+                <div class="flex gap-4 bg-white/5 border border-white/10 p-4 rounded-lg items-center">
+                    <div class="size-12 shrink-0 bg-primary flex items-center justify-center rounded-lg shadow-lg">
+                        <span class="material-symbols-outlined text-white">smart_toy</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start">
+                            <h4 class="text-white text-base font-bold">AI Detection</h4>
+                            <span
+                                class="text-primary text-[10px] font-bold uppercase px-1.5 py-0.5 border border-primary rounded">Active</span>
+                        </div>
+                        <p class="text-white/70 text-sm font-normal">Multiple strays identified.</p>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span class="text-white/40 text-xs font-medium">Sector 7</span>
+                            <span class="size-1 bg-white/20 rounded-full"></span>
+                            <span class="text-white/40 text-xs font-medium">15m ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Bottom Navigation Bar (iOS style) -->
+        <nav class="sticky bottom-0 left-0 right-0 ios-tab-bar border-t border-white/10 pb-8 pt-3 px-6 z-[60]">
+            <div class="flex justify-between items-center max-w-md mx-auto">
+                <button class="flex flex-col items-center gap-1 text-primary">
+                    <span class="material-symbols-outlined fill-1">dashboard</span>
+                    <span class="text-[10px] font-bold uppercase">Dashboard</span>
+                </button>
+                <button class="flex flex-col items-center gap-1 text-white/50 hover:text-white transition-colors">
+                    <span class="material-symbols-outlined">map</span>
+                    <span class="text-[10px] font-bold uppercase">Map</span>
+                </button>
+                <div class="relative -top-6">
+                    <button
+                        class="flex items-center justify-center size-14 bg-primary text-white rounded-full shadow-lg ring-4 ring-background-dark">
+                        <span class="material-symbols-outlined text-3xl">camera_alt</span>
+                    </button>
+                </div>
+                <button class="flex flex-col items-center gap-1 text-white/50 hover:text-white transition-colors">
+                    <span class="material-symbols-outlined">groups</span>
+                    <span class="text-[10px] font-bold uppercase">Community</span>
+                </button>
+                <button class="flex flex-col items-center gap-1 text-white/50 hover:text-white transition-colors">
+                    <span class="material-symbols-outlined">volunteer_activism</span>
+                    <span class="text-[10px] font-bold uppercase">Adoption</span>
+                </button>
+            </div>
+        </nav>
+    </div>
+</body>
+
+</html>

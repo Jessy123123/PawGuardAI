@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Community Adoption Hub</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#52c786",
+                        "background-light": "#f1f5f0",
+                        "background-dark": "#094e41",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .glass-badge {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white min-h-screen flex items-center justify-center bg-slate-900">
+    <div
+        class="relative flex h-full h-screen w-full flex-col max-w-[430px] mx-auto overflow-x-hidden bg-background-light dark:bg-background-dark shadow-2xl border-x border-white/10 overflow-y-auto no-scrollbar">
+        <!-- Header Section -->
+        <header class="pt-8 pb-4 px-6 flex flex-col gap-1">
+            <div class="flex items-center justify-between">
+                <h1 class="text-3xl font-bold tracking-tight text-white">Adopt a Friend</h1>
+                <button class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+            </div>
+            <p class="text-primary/80 text-base font-medium">From trusted animal welfare NGOs</p>
+        </header>
+        <!-- Filter Bar -->
+        <div class="flex gap-3 px-6 py-4 overflow-x-auto hide-scrollbar">
+            <button
+                class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-primary px-4 text-background-dark shadow-lg shadow-primary/20">
+                <span class="material-symbols-outlined text-[20px]">pets</span>
+                <span class="text-sm font-semibold">Dogs</span>
+            </button>
+            <button
+                class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-white/10 px-4 text-white border border-white/10">
+                <span class="material-symbols-outlined text-[20px]">pets</span>
+                <span class="text-sm font-medium">Cats</span>
+            </button>
+            <button
+                class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-white/10 px-4 text-white border border-white/10">
+                <span class="material-symbols-outlined text-[20px]">location_on</span>
+                <span class="text-sm font-medium">Location</span>
+                <span class="material-symbols-outlined text-[18px]">expand_more</span>
+            </button>
+            <button
+                class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-white/10 px-4 text-white border border-white/10">
+                <span class="material-symbols-outlined text-[20px]">corporate_fare</span>
+                <span class="text-sm font-medium">NGO Filter</span>
+                <span class="material-symbols-outlined text-[18px]">expand_more</span>
+            </button>
+        </div>
+        <!-- Adoption List -->
+        <main class="flex-1 px-4 pb-32 space-y-6">
+            <!-- Card 1 -->
+            <div class="bg-white rounded-xl overflow-hidden shadow-2xl flex flex-col group">
+                <div class="relative aspect-[4/3] w-full">
+                    <div class="absolute inset-0 bg-cover bg-center"
+                        data-alt="Close up of a friendly golden retriever puppy"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDKwNho9nWfGgSE4xMD6Sd37d6Pz1qKJmSo2zOVhMKuB7p3PjEQChXgudKZWwaESXIJW2MB4iXRIQ8BcCEp6BRy0LpNAvdAzr1jNp7aC53z4xCgUYD6edZv0yXpyQpc6bF7O1oCxorRlI3PKP0WBRwe94zne9oBZNcqYZc_c4aBCbgNHdaHva9o8lV-xXiGvmj1gOyWeDY-LnJ-98Bn6KRSNteM7WpnYWKDBPVIzLSKt7HbqqvMRZTA25oyr8vDDyn3g4ZBK7wsPW8a');">
+                    </div>
+                    <div class="absolute top-4 left-4 glass-badge px-3 py-1.5 rounded-lg border border-white/20">
+                        <span class="text-white text-sm font-bold">Buddy (Dog, ~2y)</span>
+                    </div>
+                    <button
+                        class="absolute top-4 right-4 w-10 h-10 rounded-full glass-badge flex items-center justify-center text-white border border-white/20">
+                        <span class="material-symbols-outlined">favorite</span>
+                    </button>
+                </div>
+                <div class="p-5 flex flex-col gap-4">
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[14px]">check_circle</span> Neutered
+                        </span>
+                        <span
+                            class="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[14px]">verified</span> Vaccinated
+                        </span>
+                    </div>
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2 text-slate-600">
+                            <span class="material-symbols-outlined text-[18px]">home_health</span>
+                            <p class="text-sm font-medium text-slate-700">Shelter: Happy Paws NGO • Austin</p>
+                        </div>
+                        <p class="text-xs text-slate-400 pl-6">Adoption managed by NGO</p>
+                    </div>
+                    <button
+                        class="w-full bg-primary hover:bg-primary/90 text-background-dark font-bold py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
+                        <span>View Details</span>
+                        <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="bg-white rounded-xl overflow-hidden shadow-2xl flex flex-col">
+                <div class="relative aspect-[4/3] w-full">
+                    <div class="absolute inset-0 bg-cover bg-center" data-alt="A curious gray tabby cat with green eyes"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCzZRbGA21cTlV3xNkCwwLnfHrSKRzbTTHez_0nlR3zxRHv2lbgtch5uMnU9Nw8z6f-VvLFBdzIwT1ZgMjSAioRVCkL46_ePICGzeePxgbl85vKBrpNexSFzkCBzwge_XjjhczUPVKdezt6JIpun4rmE0k7uylsqtm8R0VjWkwmvWBgbsxld7rQY_RtbutjH1UYDe__ienjpW8HZuM8Bl7QgndmDAGEKKKABt3M1epcE-0adxaY2LbnGciwYRtPMvU9ZmxRZOhmlDqi');">
+                    </div>
+                    <div class="absolute top-4 left-4 glass-badge px-3 py-1.5 rounded-lg border border-white/20">
+                        <span class="text-white text-sm font-bold">Luna (Cat, ~1y)</span>
+                    </div>
+                    <button
+                        class="absolute top-4 right-4 w-10 h-10 rounded-full glass-badge flex items-center justify-center text-white border border-white/20">
+                        <span class="material-symbols-outlined">favorite</span>
+                    </button>
+                </div>
+                <div class="p-5 flex flex-col gap-4">
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[14px]">verified</span> Vaccinated
+                        </span>
+                    </div>
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2 text-slate-600">
+                            <span class="material-symbols-outlined text-[18px]">home_health</span>
+                            <p class="text-sm font-medium text-slate-700">Shelter: Austin Pet Rescue • Austin</p>
+                        </div>
+                        <p class="text-xs text-slate-400 pl-6">Adoption managed by NGO</p>
+                    </div>
+                    <button
+                        class="w-full bg-primary hover:bg-primary/90 text-background-dark font-bold py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
+                        <span>View Details</span>
+                        <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="bg-white rounded-xl overflow-hidden shadow-2xl flex flex-col">
+                <div class="relative aspect-[4/3] w-full">
+                    <div class="absolute inset-0 bg-cover bg-center" data-alt="A small white dog sitting in the grass"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC2m8zjkBbC_z9pnkaBagEgMUKgEsXLXnL5j_A3ZpZIEuLNgjHDb419aP7uKjw7d7wW-avE9mjEr5ZCC_KiMR9sB2-hIEktnPcXHVoOl-o5s2sO2OuVnns0FYXtjy8z0FNvZZ_DzRYxSN38gsQxqQgcfYXBoT5oEvQLfI0TLteIuxsgaGWu5S3Uf9HGCl0ck_UXKfWpIk4CRiRSdZgnwGA8jHuyIaaEH35hyG7hMQCiQkEuP6zPZ83IzTf9ADM2oEEY0l2Q-PvFL_Lu');">
+                    </div>
+                    <div class="absolute top-4 left-4 glass-badge px-3 py-1.5 rounded-lg border border-white/20">
+                        <span class="text-white text-sm font-bold">Cooper (Dog, ~4y)</span>
+                    </div>
+                    <button
+                        class="absolute top-4 right-4 w-10 h-10 rounded-full glass-badge flex items-center justify-center text-white border border-white/20">
+                        <span class="material-symbols-outlined">favorite</span>
+                    </button>
+                </div>
+                <div class="p-5 flex flex-col gap-4">
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[14px]">check_circle</span> Neutered
+                        </span>
+                        <span
+                            class="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[14px]">verified</span> Vaccinated
+                        </span>
+                    </div>
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2 text-slate-600">
+                            <span class="material-symbols-outlined text-[18px]">home_health</span>
+                            <p class="text-sm font-medium text-slate-700">Shelter: Furry Friends NGO • Dallas</p>
+                        </div>
+                        <p class="text-xs text-slate-400 pl-6">Adoption managed by NGO</p>
+                    </div>
+                    <button
+                        class="w-full bg-primary hover:bg-primary/90 text-background-dark font-bold py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
+                        <span>View Details</span>
+                        <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+            <!-- Footer Note -->
+            <footer class="text-center pt-4 pb-8">
+                <p class="text-white/60 text-xs italic leading-relaxed px-8">
+                    All adoptions are reviewed and approved by the respective NGO. PawGuard AI ensures verification of
+                    all
+                    listed organizations.
+                </p>
+            </footer>
+        </main>
+        <!-- Bottom Mobile Navigation -->
+        <!-- Bottom Mobile Navigation (Updated to match image) -->
+        <nav
+            class="sticky bottom-0 left-0 right-0 bg-background-dark border-t border-white/10 h-20 px-10 flex items-center justify-between z-50">
+
+            <!-- Community -->
+            <div class="flex flex-col items-center gap-1 opacity-60">
+                <span class="material-symbols-outlined text-[26px] text-white">
+                    diversity_3
+                </span>
+                <span class="text-[10px] font-semibold text-white uppercase tracking-wider">
+                    Community
+                </span>
+            </div>
+
+            <!-- Center Scan Button -->
+            <div class="relative -mt-10">
+                <div
+                    class="w-16 h-16 rounded-full bg-primary flex items-center justify-center shadow-xl shadow-primary/40">
+                    <span class="material-symbols-outlined text-[32px] text-background-dark">
+                        photo_camera
+                    </span>
+                </div>
+            </div>
+
+            <!-- Adoption -->
+            <div class="flex flex-col items-center gap-1">
+                <span class="material-symbols-outlined text-[26px] text-primary">
+                    pets
+                </span>
+                <span class="text-[10px] font-bold text-primary uppercase tracking-wider">
+                    Adoption
+                </span>
+            </div>
+
+        </nav>
+    </div>
+</body>
+
+</html>
