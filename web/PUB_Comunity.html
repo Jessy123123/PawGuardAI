@@ -55,15 +55,20 @@
         body {
             min-height: max(884px, 100dvh);
         }
+
+        .nav-curve {
+            mask: radial-gradient(45px at 50% 0, transparent 40px, white 41px);
+            -webkit-mask: radial-gradient(45px at 50% 0, transparent 40px, white 41px);
+        }
     </style>
 </head>
 
 <body
     class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white min-h-screen flex items-center justify-center bg-slate-900">
     <div
-        class="relative flex h-full h-screen w-full max-w-[430px] flex-col overflow-y-auto overflow-x-hidden bg-background-light dark:bg-background-dark shadow-2xl border-x border-white/10 no-scrollbar">
+        class="relative flex h-full h-screen w-full max-w-[430px] flex-col overflow-hidden bg-background-light dark:bg-background-dark shadow-2xl border-x border-white/10">
         <!-- Header Section -->
-        <header class="sticky top-0 z-30 bg-background-dark px-4 pt-6 pb-2">
+        <header class="sticky top-0 z-30 bg-background-dark px-4 pt-6 pb-2 shrink-0">
             <div class="flex items-center justify-between mb-2">
                 <h1 class="text-2xl font-bold tracking-tight text-white">Community</h1>
                 <button class="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white">
@@ -89,8 +94,9 @@
                 </button>
             </div>
         </header>
+
         <!-- Main Feed Content -->
-        <main class="flex-1 px-4 pb-24 space-y-4">
+        <main class="flex-1 px-4 pb-6 space-y-4 overflow-y-auto no-scrollbar">
             <!-- Composer Card -->
             <div class="bg-white dark:bg-white/95 rounded-xl shadow-xl overflow-visible mt-2 p-4 relative z-10">
                 <div class="flex gap-3">
@@ -129,8 +135,6 @@
                                     <!-- Dropdown (Column Layout) -->
                                     <div id="postTypeMenu"
                                         class="hidden absolute left-0 top-full mt-2 w-52 bg-white rounded-xl shadow-2xl border border-slate-100 p-2 space-y-2 z-50">
-
-
 
                                         <button
                                             class="post-option flex items-center gap-3 w-full px-4 py-2 rounded-lg hover:bg-red-50 transition-colors"
@@ -323,41 +327,41 @@
                 </p>
             </footer>
         </main>
-        <!-- Bottom Navigation Bar -->
-        <!-- Bottom Navigation (Community Active) -->
-        <nav class="sticky bottom-0 left-0 right-0 h-20 bg-[#0b5a4a] px-10 flex items-center justify-between z-50">
 
-            <!-- Community (ACTIVE) -->
-            <div class="flex flex-col items-center gap-1">
-                <span class="material-symbols-outlined text-[26px] text-[#e6fff6]"
-                    style="font-variation-settings:'FILL' 1;">
-                    groups
-                </span>
-                <span class="text-[10px] font-bold text-[#e6fff6] uppercase tracking-wider">
-                    Community
-                </span>
+        <!-- Consistent App Navigation -->
+        <nav class="relative z-50 w-full mb-0">
+            <div class="absolute left-1/2 -translate-x-1/2 -top-8 flex flex-col items-center">
+                <button onclick="window.location.href='PUB_AI_Camera.html'"
+                    class="group flex h-16 w-16 items-center justify-center rounded-full bg-[#5fd3a1] text-[#0b5a4a] shadow-[0_8px_25px_rgba(95,211,161,0.4)] transition-transform active:scale-90 z-10">
+                    <span class="material-symbols-outlined text-[32px]">photo_camera</span>
+                </button>
+                <p class="mt-1 text-[10px] font-bold uppercase tracking-widest text-[#5fd3a1]">Scan</p>
             </div>
-
-            <!-- Center Floating Scan Button -->
-            <div class="relative -top-6">
-                <div
-                    class="w-16 h-16 rounded-full bg-[#5fd3a1] flex items-center justify-center shadow-2xl cursor-pointer hover:scale-105 transition-transform active:scale-95">
-                    <span class="material-symbols-outlined text-[32px] text-[#0b5a4a]">
-                        photo_camera
-                    </span>
-                </div>
+            <div
+                class="nav-curve flex gap-2 border-t border-white/10 bg-background-dark/95 backdrop-blur-md px-6 pb-8 pt-4 justify-between items-center relative h-20">
+                <a class="flex flex-1 flex-col items-center justify-center gap-1 group text-[#9fd7c3] hover:text-[#5fd3a1] transition-colors cursor-pointer"
+                    onclick="window.location.href='PUB_Home.html'">
+                    <div class="flex h-8 w-8 items-center justify-center">
+                        <span class="material-symbols-outlined text-[26px]">home</span>
+                    </div>
+                    <p class="text-[10px] font-bold uppercase tracking-widest">Home</p>
+                </a>
+                <a class="flex flex-1 flex-col items-center justify-center gap-1 group text-[#e6fff6] cursor-default">
+                    <div class="flex h-8 w-8 items-center justify-center">
+                        <span class="material-symbols-outlined text-[26px]"
+                            style="font-variation-settings:'FILL' 1;">groups</span>
+                    </div>
+                    <p class="text-[10px] font-bold uppercase tracking-widest">Community</p>
+                </a>
+                <div class="flex-1"></div>
+                <a class="flex flex-1 flex-col items-center justify-center gap-1 group text-[#9fd7c3] hover:text-[#5fd3a1] transition-colors cursor-pointer"
+                    onclick="window.location.href='PUB_Adoption.html'">
+                    <div class="flex h-8 w-8 items-center justify-center">
+                        <span class="material-symbols-outlined text-[26px]">volunteer_activism</span>
+                    </div>
+                    <p class="text-[10px] font-bold uppercase tracking-widest">Adoption</p>
+                </a>
             </div>
-
-            <!-- Adoption (INACTIVE) -->
-            <div class="flex flex-col items-center gap-1 opacity-60">
-                <span class="material-symbols-outlined text-[26px] text-[#9fd7c3]">
-                    pets
-                </span>
-                <span class="text-[10px] font-semibold text-[#9fd7c3] uppercase tracking-wider">
-                    Adoption
-                </span>
-            </div>
-
         </nav>
     </div>
 
