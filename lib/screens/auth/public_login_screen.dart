@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import '../../models/user_role.dart';
+import '../../providers/auth_provider.dart';
 
 class PublicLoginScreen extends StatefulWidget {
   const PublicLoginScreen({super.key});
@@ -8,6 +12,7 @@ class PublicLoginScreen extends StatefulWidget {
 }
 
 class _PublicLoginScreenState extends State<PublicLoginScreen> {
+  final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscurePassword = true;
@@ -17,6 +22,21 @@ class _PublicLoginScreenState extends State<PublicLoginScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  Future<void> _handleLogin() async {
+    if (_formKey.currentState!.validate()) {
+      final authProvider = context.read<AuthProvider>();
+      final success = await authProvider.signIn(
+        _emailController.text,
+        _passwordController.text,
+        UserRole.public,
+      );
+
+      if (success && mounted) {
+        context.go('/public/home');
+      }
+    }
   }
 
   @override
