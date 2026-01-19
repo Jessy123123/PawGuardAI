@@ -16,7 +16,7 @@ class ObjectDetectorService {
     try {
       // Load the interpreter from asset
       _interpreter = await Interpreter.fromAsset(
-        'ssd_mobilenet_v2.tflite',
+        'assets/ssd_mobilenet_v2.tflite',
         options: InterpreterOptions()..threads = 4,
       );
 
@@ -140,18 +140,18 @@ class ObjectDetectorService {
     return detections;
   }
 
-  /// Convert image to Float32List buffer for model input
-  List<List<List<List<double>>>> _imageToByteBuffer(img.Image image) {
-    // Create 4D tensor: [1, 300, 300, 3]
+  /// Convert image to uint8 buffer for model input
+  List<List<List<List<int>>>> _imageToByteBuffer(img.Image image) {
+    // Create 4D tensor: [1, 300, 300, 3] with uint8 values (0-255)
     return List.generate(1, (_) {
       return List.generate(300, (y) {
         return List.generate(300, (x) {
           final pixel = image.getPixel(x, y);
-          // Normalize to 0-1 range (or use appropriate normalization for your model)
+          // Return uint8 values (0-255) - NO normalization
           return [
-            pixel.r / 255.0,
-            pixel.g / 255.0,
-            pixel.b / 255.0,
+            pixel.r.toInt(),
+            pixel.g.toInt(),
+            pixel.b.toInt(),
           ];
         });
       });

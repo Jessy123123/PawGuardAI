@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PawGuard AI - Auth</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#22C55E",          // GREEN
+                        "background-dark": "#0f1f16",
+                        "card-green": "#142a1d"
+                    },
+                    fontFamily: {
+                        display: ["Inter"]
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="bg-background-dark font-display text-white flex items-center justify-center bg-slate-900 min-h-screen">
+    <div
+        class="relative flex h-full h-screen w-full flex-col max-w-[430px] mx-auto overflow-x-hidden p-6 sm:p-8 bg-background-dark shadow-2xl border-x border-white/10 overflow-y-auto no-scrollbar">
+
+        <!-- Header -->
+        <header class="flex flex-col justify-center items-center py-8 gap-2">
+            <div class="bg-primary/20 p-3 rounded-xl">
+                <span class="material-symbols-outlined text-4xl text-primary">pets</span>
+            </div>
+            <h1 class="text-2xl font-bold">PawGuard AI</h1>
+        </header>
+
+        <main class="flex-1">
+
+            <!-- Role Selection -->
+            <p class="text-primary text-xs font-bold uppercase tracking-widest mb-4 text-center">
+                Select Your Role
+            </p>
+
+            <div class="grid grid-cols-2 gap-4 mb-8">
+
+                <!-- Public -->
+                <label class="relative cursor-pointer">
+                    <input type="radio" name="role" value="citizen" class="peer sr-only">
+                    <div class="p-5 rounded-xl border-2 border-white/10 bg-card-green text-center
+                    peer-checked:border-primary peer-checked:bg-primary/10 transition">
+
+                        <span class="material-symbols-outlined text-4xl mb-2 block
+                        text-white/50 peer-checked:text-primary">
+                            person
+                        </span>
+
+                        <span class="font-semibold block">Public</span>
+                    </div>
+                </label>
+
+                <!-- NGO DEFAULT -->
+                <label class="relative cursor-pointer">
+                    <input checked type="radio" name="role" value="ngo" class="peer sr-only">
+                    <div class="p-5 rounded-xl border-2 border-white/10 bg-card-green text-center
+                    peer-checked:border-primary peer-checked:bg-primary/10 transition">
+
+                        <span class="material-symbols-outlined text-4xl mb-2 block
+                        text-white/50 peer-checked:text-primary">
+                            volunteer_activism
+                        </span>
+
+                        <span class="font-semibold block">NGO</span>
+                    </div>
+
+                    <div class="absolute -top-2 -right-2 hidden peer-checked:flex bg-primary rounded-full p-1">
+                        <span class="material-symbols-outlined text-sm text-black">check</span>
+                    </div>
+                </label>
+            </div>
+
+            <!-- LOGIN / SIGN UP TOGGLE -->
+            <div class="mb-8">
+                <div class="flex h-12 items-center rounded-full bg-card-green p-1 border border-white/10">
+                    <label class="flex cursor-pointer h-full grow items-center justify-center rounded-full
+                    has-[:checked]:bg-primary has-[:checked]:text-black
+                    text-white/60 text-sm font-bold transition">
+                        LOGIN
+                        <input type="radio" name="auth" value="login" class="invisible w-0">
+                    </label>
+
+                    <label class="flex cursor-pointer h-full grow items-center justify-center rounded-full
+                    has-[:checked]:bg-primary has-[:checked]:text-black
+                    text-white/60 text-sm font-bold transition">
+                        SIGN UP
+                        <input checked type="radio" name="auth" value="signup" class="invisible w-0">
+                    </label>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <div class="space-y-4">
+
+                <div>
+                    <label class="text-xs uppercase text-white/70">Email Address</label>
+                    <input class="w-full h-14 rounded-lg px-4 text-black" placeholder="contact@ngo.org" type="email">
+                </div>
+
+                <div>
+                    <label class="text-xs uppercase text-white/70">Password</label>
+                    <input id="password" class="w-full h-14 rounded-lg px-4 text-black" placeholder="••••••••"
+                        type="password">
+                </div>
+
+                <!-- NGO ONLY: Re-enter password -->
+                <div id="reenterPasswordField" class="">
+                    <label class="text-xs uppercase text-white/70">Re-enter Password</label>
+                    <input id="repassword" class="w-full h-14 rounded-lg px-4 text-black" placeholder="••••••••"
+                        type="password">
+                </div>
+
+                <!-- NGO ONLY -->
+                <div>
+                    <label class="text-xs uppercase text-white/70">Organization Name</label>
+                    <input class="w-full h-14 rounded-lg px-4 text-black" placeholder="Global Rescue Corp">
+                </div>
+
+                <!-- Reg Number + Camera -->
+                <div>
+                    <label class="text-xs uppercase text-white/70">Reg Number</label>
+                    <div class="relative">
+                        <input id="regNumber" class="w-full h-14 rounded-lg px-4 pr-14 text-black"
+                            placeholder="Scan or enter manually">
+
+                        <button onclick="openCamera()"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 hover:text-primary">
+                            <span class="material-symbols-outlined text-2xl">photo_camera</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="text-xs uppercase text-white/70">Country</label>
+                    <select class="w-full h-14 rounded-lg px-4 text-black">
+                        <option>Malaysia</option>
+                        <option>USA</option>
+                        <option>UK</option>
+                    </select>
+                </div>
+            </div>
+
+            <button
+                class="mt-10 w-full h-16 bg-primary rounded-xl text-lg font-bold text-black flex justify-center items-center gap-2">
+                Access Platform
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+
+        </main>
+
+        <footer class="text-center text-xs text-white/30 py-6">
+            © 2026 PawGuard AI
+        </footer>
+    </div>
+
+    <!-- CAMERA MODAL -->
+    <div id="cameraModal" class="fixed inset-0 bg-black/80 hidden flex-col justify-center items-center z-50">
+        <video id="video" autoplay class="rounded-lg w-72 mb-4"></video>
+
+        <button onclick="captureImage()" class="bg-primary px-6 py-3 rounded-lg font-bold text-black">
+            Scan Document
+        </button>
+
+        <button onclick="closeCamera()" class="mt-3 text-white/60 text-sm">
+            Cancel
+        </button>
+    </div>
+
+    <script>
+        let stream;
+
+        async function openCamera() {
+            document.getElementById("cameraModal").classList.remove("hidden");
+            stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            document.getElementById("video").srcObject = stream;
+        }
+
+        function closeCamera() {
+            document.getElementById("cameraModal").classList.add("hidden");
+            stream.getTracks().forEach(track => track.stop());
+        }
+
+        function captureImage() {
+            document.getElementById("regNumber").value = "NGO-MY-2024-88321";
+            closeCamera();
+            alert("Registration number scanned successfully ✔");
+        }
+    </script>
+
+</body>
+
+</html>
