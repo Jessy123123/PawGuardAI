@@ -54,5 +54,12 @@ flutter:
     - assets/breed_labels.txt
     - assets/activity_labels.txt
     - assets/models/
+    - assets/models/README.md
+    - assets/models/model_download_guide.md
+    - assets/models/breed_classifier.tflite
+    - assets/models/activity_detector.tflite
+    - assets/models/health_detector.tflite
+    - assets/models/pet_feature_extractor.tflite
     - .env
+
 

@@ -204,7 +204,7 @@ class ObjectDetectorService {
         int g = (y - u * 46549 / 131072 + 44 - v * 93604 / 131072 + 91).round().clamp(0, 255);
         int b = (y + u * 1814 / 1024 - 227).round().clamp(0, 255);
 
-        image.setPixelRgba(w, h, r, g, b);
+        image.setPixelRgb(w, h, r, g, b);
       }
     }
 
@@ -226,7 +226,7 @@ class ObjectDetectorService {
         final g = bytes[index * 4 + 1];
         final r = bytes[index * 4 + 2];
 
-        image.setPixelRgba(w, h, r, g, b);
+        image.setPixelRgb(w, h, r, g, b);
       }
     }
 

@@ -1,3 +1,23 @@
+enum HealthStatus {
+  unknown,
+  concerning,
+  fair,
+  good;
+
+  String get name {
+    switch (this) {
+      case HealthStatus.good:
+        return 'Good';
+      case HealthStatus.fair:
+        return 'Fair';
+      case HealthStatus.concerning:
+        return 'Concerning';
+      case HealthStatus.unknown:
+        return 'Unknown';
+    }
+  }
+}
+
 enum HealthIssueType {
   skinCondition,
   injury,
@@ -96,7 +116,9 @@ class HealthIssue {
 }
 
 class HealthAssessment {
-  final double overallScore; // 0-100
+  final double overallScore; // 0-1 now for consistency
+  final double? skinCondition; // 0-1
+  final HealthStatus status;
   final List<HealthIssue> issues;
   final List<String> recommendations;
   final DateTime timestamp;
@@ -104,11 +126,17 @@ class HealthAssessment {
 
   HealthAssessment({
     required this.overallScore,
-    required this.issues,
-    required this.recommendations,
+    this.skinCondition,
+    HealthStatus? status,
+    List<HealthIssue>? issues,
+    List<String>? recommendations,
     DateTime? timestamp,
-    required this.requiresVetVisit,
-  }) : timestamp = timestamp ?? DateTime.now();
+    bool? requiresVetVisit,
+  }) : issues = issues ?? [],
+       recommendations = recommendations ?? [],
+       timestamp = timestamp ?? DateTime.now(),
+       requiresVetVisit = requiresVetVisit ?? false,
+       status = status ?? _determineStatus(overallScore);
 
   bool get isHealthy => overallScore >= 80 && issues.isEmpty;
   bool get hasConcerns => overallScore < 70 || issues.isNotEmpty;
@@ -150,6 +178,13 @@ class HealthAssessment {
         timestamp: DateTime.parse(json['timestamp'] as String),
         requiresVetVisit: json['requiresVetVisit'] as bool,
       );
+
+  static HealthStatus _determineStatus(double score) {
+    if (score >= 0.8) return HealthStatus.good;
+    if (score >= 0.6) return HealthStatus.fair;
+    if (score > 0) return HealthStatus.concerning;
+    return HealthStatus.unknown;
+  }
 
   @override
   String toString() =>
