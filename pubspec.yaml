@@ -9,21 +9,25 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  # UI & platform
   google_maps_flutter: ^2.6.0
+  permission_handler: ^11.0.1
+  image_picker: ^1.0.7
+  path_provider: ^2.1.2
 
-  tflite_flutter: ^0.12.1 # Using latest version with FFI fix
+  # Camera & ML
   camera: ^0.11.0
+  tflite_flutter: ^0.12.1
   google_mlkit_face_detection: ^0.11.0
-  google_mlkit_commons: ^0.8.0
 
+  # Firebase
   firebase_core: ^2.24.2
   cloud_firestore: ^4.15.5
-  image: ^4.1.7
-  path_provider: ^2.1.2
-  image_picker: ^1.0.7
 
+  # Utils
+  image: ^4.1.7
   flutter_dotenv: ^5.1.0
-  permission_handler: ^11.0.1
 
 dev_dependencies:
   flutter_test:
