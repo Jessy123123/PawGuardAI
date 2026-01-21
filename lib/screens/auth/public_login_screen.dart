@@ -314,7 +314,7 @@ class _PublicLoginScreenState extends State<PublicLoginScreen> {
                       ),
                       TextButton(
                         onPressed: () {
-                          context.go('/auth/public/signup');
+                          // Navigate to sign up
                         },
                         style: TextButton.styleFrom(
                           foregroundColor: const Color(0xFF00c295),
