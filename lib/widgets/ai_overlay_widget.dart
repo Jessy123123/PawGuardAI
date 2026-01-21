@@ -145,7 +145,7 @@ class _AIOverlayPainter extends CustomPainter {
   }
 
   void _drawBreedLabel(Canvas canvas, Size size) {
-    final text = '${breedInfo!.breed} (${(breedInfo!.confidence * 100).toStringAsFixed(0)}%)';
+    final text = '${breedInfo!.breedName} (${(breedInfo!.confidence * 100).toStringAsFixed(0)}%)';
     final textPainter = TextPainter(
       text: TextSpan(
         text: text,

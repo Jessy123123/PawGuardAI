@@ -4,6 +4,7 @@ import 'package:camera/camera.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../services/object_detector.dart';
+import '../models/ai_detection_result.dart';
 
 class TestDetectorScreen extends StatefulWidget {
   const TestDetectorScreen({super.key});
@@ -18,7 +19,7 @@ class _TestDetectorScreenState extends State<TestDetectorScreen> {
   
   bool _isLoading = true;
   String _status = 'Initializing...';
-  List<Map<String, dynamic>> _detections = [];
+  List<AIDetectionResult> _detections = [];
   
   CameraController? _cameraController;
   List<CameraDescription>? _cameras;
@@ -268,9 +269,9 @@ class _TestDetectorScreenState extends State<TestDetectorScreen> {
                               return Card(
                                 child: ListTile(
                                   leading: const Icon(Icons.pets, color: Colors.deepPurple),
-                                  title: Text(det['label'] ?? 'Unknown'),
+                                  title: Text(det.label),
                                   subtitle: Text(
-                                    'Confidence: ${((det['confidence'] as double) * 100).toStringAsFixed(1)}%',
+                                    'Confidence: ${(det.confidence * 100).toStringAsFixed(1)}%',
                                   ),
                                 ),
                               );

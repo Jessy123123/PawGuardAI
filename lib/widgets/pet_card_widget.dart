@@ -227,7 +227,7 @@ class PetCardWidget extends StatelessWidget {
           ),
           const SizedBox(width: 4),
           Text(
-            breedInfo!.breed,
+            breedInfo!.breedName,
             style: const TextStyle(
               color: Colors.white,
               fontSize: 12,
