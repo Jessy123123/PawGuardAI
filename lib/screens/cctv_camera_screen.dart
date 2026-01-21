@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'dart:async';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
-import 'package:image/image.dart' as img;
+
 import 'package:permission_handler/permission_handler.dart';
 import '../services/object_detector.dart';
 import '../services/breed_classifier.dart';
@@ -354,4 +354,4 @@ class _CctvCameraScreenState extends State<CctvCameraScreen> {
     });
   }
 }
-```
+

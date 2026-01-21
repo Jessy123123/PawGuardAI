@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../models/breed_info.dart';
-import '../models/health_assessment.dart';
-import '../models/activity_result.dart';
-import '../widgets/pet_card_widget.dart';
+import '../../models/breed_info.dart';
+import '../../models/health_assessment.dart';
+import '../../models/activity_result.dart';
+import '../../widgets/pet_card_widget.dart';
 
 class AdoptionListScreen extends StatefulWidget {
   const AdoptionListScreen({super.key});
