@@ -17,6 +17,7 @@ import '../screens/public/adoption_list_screen.dart';
 import '../screens/public/adoption_detail_screen.dart';
 import '../screens/public/adoption_flow_screen.dart';
 import '../screens/public/community_screen.dart';
+import '../screens/public/profile_screen.dart';
 
 // NGO screens
 import '../screens/ngo/ngo_home_screen.dart';
@@ -113,6 +114,13 @@ class AppRouter {
             name: 'publicCommunity',
             pageBuilder: (context, state) => NoTransitionPage(
               child: const CommunityScreen(),
+            ),
+          ),
+          GoRoute(
+            path: '/public/profile',
+            name: 'publicProfile',
+            pageBuilder: (context, state) => NoTransitionPage(
+              child: const ProfileScreen(),
             ),
           ),
         ],
