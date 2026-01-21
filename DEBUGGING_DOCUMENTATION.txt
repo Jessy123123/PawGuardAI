@@ -21,4 +21,9 @@
    - Issue: 'Target of URI doesn't exist' and 'Undefined class' errors.
    - Fix: Corrected relative import paths (changed `../models/...` to `../../models/...`).
 
+6. Fixed `android/build.gradle.kts`:
+   - Issue: "Unresolved reference: android" and "Too many characters in a character literal" errors.
+   - Cause: The `android { ... }` configuration block was incorrectly placed in the root project's build file. It belongs in the app module's build file.
+   - Fix: Removed the invalid `android { ... }` block from `android/build.gradle.kts`. Verified that `android/app/build.gradle.kts` already contains the correct configuration.
+
 Status: All reported compilation errors have been resolved. The app should now compile and run.
